@@ -3,11 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
-
-const mockGeolocation = {
-  getCurrentPosition: jest.fn(),
-  watchPosition: jest.fn(),
-};
+import "@testing-library/react";
 
 const localStorageMock = {
   getItem: jest.fn(),
@@ -17,4 +13,10 @@ const localStorageMock = {
 };
 
 global.localStorage = localStorageMock;
+
+const mockGeolocation = {
+  getCurrentPosition: jest.fn(),
+  watchPosition: jest.fn(),
+};
+
 global.navigator.geolocation = mockGeolocation;

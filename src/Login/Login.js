@@ -17,6 +17,7 @@ function Login() {
       ) : (
         <form>
           <input
+            data-testid="login-input"
             id="login-input"
             required
             maxLength="15"
@@ -25,6 +26,7 @@ function Login() {
             onChange={(e) => setText(e.target.value)}
           />
           <button
+            data-testid="login-button"
             id="login-button"
             onClick={(e) => {
               e.preventDefault();

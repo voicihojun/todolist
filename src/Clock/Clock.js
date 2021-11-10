@@ -16,7 +16,11 @@ function Clock() {
       setTime(getCurrentTime());
     }, 1000);
   });
-  return <div id="clock">{time}</div>;
+  return (
+    <div data-testid="clock" id="clock">
+      {time}
+    </div>
+  );
 }
 
 export default Clock;

@@ -45,8 +45,13 @@ const quotes = [
   },
 ];
 
+const findRandomNumber = (arrLength) => {
+  return Math.floor(Math.random() * arrLength);
+};
+
 function Quote() {
-  const todaysQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  const randomNumber = findRandomNumber(quotes.length);
+  const todaysQuote = quotes[randomNumber];
 
   return (
     <div id="quote">
@@ -58,3 +63,5 @@ function Quote() {
 }
 
 export default Quote;
+
+exports.findRandomNumber = findRandomNumber;

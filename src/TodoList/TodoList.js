@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoLists from "./TodoLists";
 
 function TodoList() {
-  let [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(
+    () => JSON.parse(localStorage.getItem("todos")) || []
+  );
   const [input, setInput] = useState("");
 
-  function saveTodos() {
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  function saveTodos(todos) {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
@@ -16,33 +22,28 @@ function TodoList() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
-  function handleTodoSubmit(newTodo) {
-    const newTodoObj = { id: String(Date.now()), todo: newTodo };
+  function handleTodoSubmit(e) {
+    e.preventDefault();
+    const newTodoObj = { id: String(Date.now()), todo: input };
     setTodos([...todos, newTodoObj]);
-    saveTodos();
-    // setInput(""); // Through this code, I shoud be able to remove the content of the input,
+    saveTodos(todos);
+    setInput("");
+    // setInput("");
+    //  // Through this code, I should be able to remove the content of the input,
     // but it does not work. I don't know why. probably, we should put this function on a button after making a button?
-  }
-  const savedTodos = localStorage.getItem("todos");
-  if (savedTodos !== null) {
-    const parsedTodos = JSON.parse(savedTodos);
-    todos = parsedTodos;
   }
 
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleTodoSubmit(input);
-        }}
-      >
+      <form onSubmit={handleTodoSubmit}>
         <input
           id="todo-input"
           type="text"
           placeholder="Write What to do and Press Enter."
           required
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
         />
       </form>
 
